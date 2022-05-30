@@ -11,10 +11,18 @@
     		<?= form_error('menu', '<div class="alert alert-danger" role="alert">','</div>'); ?>
     		<?= $this->session->flashdata('message'); ?>
     		<a href="" class="btn btn-danger mb-3" data-toggle="modal" data-target="#newInputDataModal1">Add New Data</a>
+            <div>
+                <label>Select Date</label>
+                <input type="date" id="start_date" name="start_date" value="<?= $this->input->get('start_date')
+             ?>"> - <input type="date" id="end_date" name="end_date" value="<?= $this->input->get('end_date')
+             ?>"> 
+            </div>
+            <form action="<?= base_url('Laporanpdf/generate'); ?>" method="post">
+
     		<table class="table table-hover" id="dataTable">
 					<thead>
 						<tr>
-						<th scope="col">#</th>
+						<th scope="col"><input type="checkbox" id="select_all_patient" name="select_all_patient" value=""></th>
 						<th scope="col">Date</th>
 						<th scope="col">Name</th>
 						<th scope="col">Department</th>
@@ -28,7 +36,7 @@
 						<?php $i = 1; ?>
 						<?php foreach ($patients as $p) : ?>
 					<tr>
-							<td scope="row"><?= $i; ?></td>
+							<td scope="row"><?= $i; ?> <input type="checkbox" id="select_all_patient" name="ids_patient[]" value="<?= $p['id']; ?>"></td>
 							<td><?= date('d F Y | H:i', strtotime($p['check_in'])) . ' - '. date('H:i', strtotime($p['check_out'])); ?></td>
 							<td><?= $p['name']; ?></td>
 							<td><?= $p['department']; ?></td>
@@ -45,6 +53,9 @@
 					<?php endforeach; ?>
 					</tbody>
 				</table>
+            <button type="submit" class="btn btn-danger">Download Data</button>
+                
+                </form>
     	</div>
     </div>
 
@@ -209,4 +220,25 @@
             }
           });
     });
+
+    $("#end_date").on('change', function(e){
+        var start_date = $("#start_date").val();
+        var end_date = $(this).val();
+        if (start_date != '' && end_date > start_date){
+            window.location.href = "inputData?start_date="+start_date+"&end_date="+end_date
+        }
+    })
+
+    $('#select_all_patient').click(function(event) {   
+    if(this.checked) {
+        // Iterate each checkbox
+        $(':checkbox').each(function() {
+            this.checked = true;                        
+        });
+    } else {
+        $(':checkbox').each(function() {
+            this.checked = false;                       
+        });
+        }
+    }); 
 </script>

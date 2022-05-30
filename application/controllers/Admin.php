@@ -122,7 +122,13 @@ class admin extends CI_Controller {
     	$data['title'] = 'Visitor Data';
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['employees'] = $this->employee->select_all();
-		$data['patients'] = $this->patient->select_all();
+        $start_date = $this->input->get('start_date', TRUE);
+        $end_date = $this->input->get('end_date', TRUE);
+        if ($start_date == '' && $end_date == '') {
+            $data['patients'] = $this->patient->select_all();    
+        }else{
+		  $data['patients'] = $this->patient->select_all_by_date($start_date, $end_date);
+        }
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar', $data);
 		$this->load->view('templates/topbar', $data);
