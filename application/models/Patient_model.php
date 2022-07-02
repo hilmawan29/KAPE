@@ -15,7 +15,7 @@ class Patient_model extends CI_Model {
 	}
 
 	public function get_by_id($id) {
-		$query = "SELECT `patient`. `id`,`patient`. `check_in`, `patient`. `check_out`, `patient`. `diagnosis`, `patient`. `drugs`, `patient`. `conclusion`, `patient`. `employee_id`
+		$query = "SELECT `patient`. `id`,`patient`. `check_in`, `patient`. `check_out`, `patient`. `jenis_sakit`, `patient`. `diagnosis`, `patient`. `drugs`, `patient`. `conclusion`, `patient`. `employee_id`
 				  FROM `patient` WHERE `id` = $id
 				 ";
 				 return $this->db->query($query)->row_array();
@@ -38,5 +38,11 @@ class Patient_model extends CI_Model {
 				 ";
 				 // die($query);
 				 return $this->db->query($query)->result_array(); 
+	}
+
+	public function summary_result($start_date, $end_date) {
+		$query = "SELECT COUNT(id) AS total, conclusion FROM `patient` WHERE DATE(`patient`. `check_in`) >= DATE('$start_date') AND DATE(`patient`. `check_in`) <= DATE('$end_date')  GROUP BY `conclusion`
+				 ";
+				 return $this->db->query($query)->result_array();
 	}
 }

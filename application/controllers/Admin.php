@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+ 
 class admin extends CI_Controller { 
 	public function __construct() {
 		parent :: __construct();
@@ -14,6 +14,14 @@ class admin extends CI_Controller {
 	public function index() {
 		$data['title'] = 'Dashboard';
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        if(!empty ($this->input->get('label'))) {
+            $start_date = date("Y-m-01", strtotime($this->input->get('label')));
+            $end_date = date("Y-m-t", strtotime($this->input->get('label')));
+        }else{
+            $start_date = date('Y-m-01');
+            $end_date = date("Y-m-t");
+        }
+        $data['dashboard'] = $this->patient->summary_result($start_date, $end_date);
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar', $data);
 		$this->load->view('templates/topbar', $data);
@@ -125,7 +133,7 @@ class admin extends CI_Controller {
         $start_date = $this->input->get('start_date', TRUE);
         $end_date = $this->input->get('end_date', TRUE);
         if ($start_date == '' && $end_date == '') {
-            $data['patients'] = $this->patient->select_all();    
+            $data['patients'] = $this->patient->select_all();     
         }else{
 		  $data['patients'] = $this->patient->select_all_by_date($start_date, $end_date);
         }
@@ -141,6 +149,7 @@ class admin extends CI_Controller {
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$this->form_validation->set_rules('check_in', 'Check in', 'required');
 		$this->form_validation->set_rules('check_out', 'Check out', 'required');
+        $this->form_validation->set_rules('jenis_sakit', 'Jenis sakit', 'required');
 		$this->form_validation->set_rules('employee_id', 'Employee', 'required');
 		$this->form_validation->set_rules('diagnosis', 'Diagnosis', 'required');
 		$this->form_validation->set_rules('drugs', 'Drugs', 'required');
@@ -154,6 +163,7 @@ class admin extends CI_Controller {
 			$data = [
 				'check_in' => $this->input->post('check_in'),
 				'check_out' => $this->input->post('check_out'),
+                'jenis_sakit' => $this->input->post('jenis_sakit'),
 				'employee_id' => $this->input->post('employee_id'),
 				'diagnosis' => $this->input->post('diagnosis'),
 				'drugs' => $this->input->post('drugs'),
@@ -179,6 +189,7 @@ class admin extends CI_Controller {
 
         $this->form_validation->set_rules('check_in', 'Check in', 'required');
 		$this->form_validation->set_rules('check_out', 'Check out', 'required');
+        $this->form_validation->set_rules('jenis_sakit', 'Jenis sakit', 'required');
 		$this->form_validation->set_rules('diagnosis', 'Diagnosis', 'required');
 		$this->form_validation->set_rules('drugs', 'Drugs', 'required');
 		$this->form_validation->set_rules('conclusion', 'Conclusion', 'required');
@@ -194,6 +205,7 @@ class admin extends CI_Controller {
             $data_pat = [
                 'check_in' => $this->input->post('check_in'),
                 'check_out' => $this->input->post('check_out'),
+                'jenis_sakit' => $this->input->post('jenis_sakit'),
                 'diagnosis' => $this->input->post('diagnosis'),
                 'drugs' => $this->input->post('drugs'),
                 'conclusion' => $this->input->post('conclusion')
@@ -252,12 +264,13 @@ class admin extends CI_Controller {
             $this->load->view('templates/footer', $data);
         } else {
         $config['upload_path']          = './upload/';
-        $config['allowed_types']        = 'gif|jpg|png';
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
         $config['max_size']             = 10000;
         $config['max_width']            = 10024;
         $config['max_height']           = 10024;
         $this->load->library('upload', $config);
-        if (!$this->upload->do_upload('foto')) {
+        // die(var_dump($_FILES['foto']));
+        if (!$this->upload->do_upload('foto') && !empty($_FILES['foto']['name'])) {
             // die($this->upload->display_errors());
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' .$this->upload->display_errors().'</div>');
             redirect('admin/add_employee');
@@ -302,10 +315,10 @@ class admin extends CI_Controller {
             $this->load->view('templates/footer');
         } else {
             $config['upload_path']          = './upload/';
-            $config['allowed_types']        = 'gif|jpg|png';
+            $config['allowed_types']        = 'gif|jpg|png|jpeg';
             $config['max_size']             = 10000;
             $config['max_width']            = 10024;
-            $config['max_height']           = 10024;
+            $config['max_height']           = 10050;
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('foto') && $_FILES['foto']['name'] != '') {
             // die($this->upload->display_errors());

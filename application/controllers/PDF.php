@@ -50,7 +50,7 @@ class Laporanpdf extends CI_Controller {
                 //lalu hitung berapa banyak baris yang dibutuhkan agar teks pas dengan sel
                 
                 $textLength=strlen($data['diagnosis']);    //total panjang teks
-                $errMargin=10;       //margin kesalahan lebar sel, untuk jaga-jaga
+                $errMargin=8;       //margin kesalahan lebar sel, untuk jaga-jaga
                 $startChar=0;       //posisi awal karakter untuk setiap baris
                 $maxChar=0;         //karakter maksimum dalam satu baris, yang akan ditambahkan nanti
                 $textArray=array(); //untuk menampung data untuk setiap baris
@@ -86,15 +86,23 @@ class Laporanpdf extends CI_Controller {
             //memanfaatkan MultiCell sebagai ganti Cell
             //atur posisi xy untuk sel berikutnya menjadi di sebelahnya.
             //ingat posisi x dan y sebelum menulis MultiCell
-            $yPos=$pdf->GetY();
             $xPos=$pdf->GetX();
+            $yPos=$pdf->GetY();
             $pdf->MultiCell($cellWidth,$cellHeight,$data['diagnosis'],1);
             
             //kembalikan posisi untuk sel berikutnya di samping MultiCell 
               //dan offset x dengan lebar MultiCell
             $pdf->SetXY($xPos + $cellWidth , $yPos);
-            $pdf->Cell(30,($line * $cellHeight),$data['drugs'],1,0,'C',true);//sesuaikan ketinggian dengan jumlah garis 
-            $pdf->Cell(40,($line * $cellHeight),$data['conclusion'],1,1,'C',true);//sesuaikan ketinggian dengan jumlah garis
+            $xPos=$pdf->GetX();
+            $yPos=$pdf->GetY(); 
+            // $pdf->Cell(30,($line * $cellHeight),"Test,1,0);//sesuaikan ketinggian dengan jumlah garis
+            $data_anyar = utf8_decode(str_replace(", ",chr(10), $data['drugs']));
+            // $pdf->SetXY($xPos, )
+            $pdf->MultiCell(30, $cellHeight, $data_anyar, 1, "L");
+            $pdf->SetXY($xPos + 30, 30);
+            $xPos=$pdf->GetX();
+            $yPos=$pdf->GetY(); 
+            $pdf->Cell(40,($line * $cellHeight),$data['conclusion'],1,1,'C',true); //sesuaikan ketinggian dengan jumlah garis
 
         }
         $pdf->Output();

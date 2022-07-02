@@ -129,15 +129,15 @@
   <div class="modal-body">
      <div class="form-group">
         <div class="form-group">
-            <label>Name : </label>
+            <label>Nama : </label>
             <label id="name" class="text-capitalize"></label>
         </div>
          <div class="form-group">
-             <label>Department : </label>
+             <label>Departemen : </label>
              <label id="department"></label>
          </div>
          <div class="form-group">
-             <label>Age : </label>
+             <label>Umur : </label>
              <label id="age"></label>
          </div>
          <div class="form-group">
@@ -147,23 +147,53 @@
          <input type="hidden" name="employee_id" id="employee_id">
      </div>
       <div class="form-group">
+        <label>Tanggal | Jam Masuk</label>
             <input type="datetime-local" class="form-control" id="check_in" name="check_in">
       </div>
       <div class="form-group">
+        <label>Jam Keluar</label>
          <input type="time" class="form-control" id="check_out" name="check_out" placeholder="Check out">
-      </div>
+      </div> 
       <div class="form-group">
+        <label>Sakit yang dialami</label>
           <select class="form-control" id="jenis_sakit" name="jenis_sakit">
              <option value="">Jenis Sakit</option>
              <option value="Flu">Flu </option>
              <option value="Demam">Demam</option>
-             <option value="Covid-19">Covid-19</option>
+             <option value="Batuk">Batuk</option>
+             <option value="Sakit Kepala">Sakit Kepala</option>
+             <option value="Sakit Gigi">Sakit Gigi</option>
+             <option value="Teriris">Teriris</option>
+             <option value="Mual">Mual</option>
+             <option value="Panas Dalam">Panas Dalam</option>
+             <option value="Magh">Magh</option>
+             <option value="Magh Kronis">Magh Kronis</option>
+             <option value="Sakit Haid">Sakit Haid</option>
+             <option value="Bisul">Bisul</option>
+             <option value="ISPA">ISPA</option>
+             <option value="Hipotensi">Hipotensi</option>
+             <option value="Diare">Diare</option>
+             <option value="Edema">Edema</option>
+             <option value="Sariawan">Sariawan</option>
+             <option value="Asam Urat">Asam Urat</option>
+             <option value="Kolesterol">Kolesterol</option>
+             <option value="Pegal-Pegal">Pegal-Pegal</option>
+             <option value="Susah BAB">Susah BAB</option>
+             <option value="Gatal-Gatal">Gatal-Gatal</option>
+             <option value="Darah Tinggi">Darah Tinggi</option>
+             <option value="Wasir">Wasir</option>
+             <option value="Sakit Mata">Sakit Mata</option>
+             <option value="Lemas">Lemas</option>
+             <option value="Infeksi Saluran Kemih">Infeksi Saluran Kemih</option>
+             <option value="Vertigo">Vertigo</option>
           </select>
       </div>
       <div class="form-group">
+        <label>Observasi Pasien</label>
          <textarea name="diagnosis" class="form-control" id="diagnosis" rows="5" placeholder="Diagnosis"></textarea>
       </div>
        <div class="form-group">
+        <label>Obat yang direkomendasikan</label>
          <textarea name="drugs" class="form-control" id="drugs" placeholder="Drugs"></textarea>
       </div>
        <div class="form-group" id="conclusion">
@@ -191,6 +221,62 @@
             var conclusion = 'Istirahat Dulu';
         }else if (jenis_sakit == 'Covid-19') {
             var conclusion = 'Harus Pulang';
+        }else if (jenis_sakit == 'Batuk') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Sakit Kepala') {
+            var conclusion = 'Istirahat Dulu';
+        }else if (jenis_sakit == 'Sakit Gigi') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Teriris') {
+            var conclusion = 'Istirahat Dulu';
+        }else if (jenis_sakit == 'Mual') {
+            var conclusion = 'Istirahat Dulu';
+        }else if (jenis_sakit == 'Panas Dalam') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Magh') {
+            var conclusion = 'Istirahat Dulu';
+        }else if (jenis_sakit == 'Magh Kronis') {
+            var conclusion = 'Harus Pulang';
+        }else if (jenis_sakit == 'Sakit Haid') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Bisul') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'ISPA') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Bisul') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Hipotensi') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Diare') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Edema') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Sariawan') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Asam Urat') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Kolesterol') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Pegal-Pegal') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Susah BAB') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Gatal-Gatal') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Darah Tinggi') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Wasir') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Bisul') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Sakit Mata') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Lemas') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Infeksi Saluran Kemih') {
+            var conclusion = 'Beri Obat';
+        }else if (jenis_sakit == 'Vertigo') {
+            var conclusion = 'Istirahat Dulu';
         }
         $("#conclusion").find("input").val(conclusion);
         $("#conclusion").find("label#text").html(conclusion);

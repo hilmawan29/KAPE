@@ -29,7 +29,7 @@
     								<tr>
       								<td scope="row"><?= $i; ?></td>
                                     <td><?php if ($e['foto'] !='') {
-                                        echo "<img src=".base_url("upload/".$e['foto'])." width='100' height='60'>";
+                                        echo "<img src=".base_url("upload/".$e['foto'])." width='100' height='120'>";
                                     } ?></td>
       								<td><?= $e['name']; ?></td>
                                     <td><?= $e['department']; ?></td>
@@ -95,11 +95,11 @@
             <input type="file" class="form-control" id="foto" name="foto" placeholder="Choose File">
         </div>
           <div class="form-group">
-    		 <input type="text" class="form-control" id="name" name="name" placeholder="Employee name">
+    		 <input type="text" class="form-control" id="name" name="name" placeholder="Nama Karyawan">
           </div>
           <div class="form-group">
              <select name="department" id="department" class="form-control">
-                <option value="">Select Department ...</option>
+                <option value="">Pilih Departemen ...</option>
                 <option value="Accounting">Accounting</option>
                 <option value="Compliance">Compliance</option>
                 <option value="HRD">HRD</option>
@@ -150,7 +150,7 @@
                 </select>
           </div>
           <div class="form-group">
-             <input type="text" class="form-control" id="age" name="age" placeholder="Age Employee">
+             <input type="text" class="form-control" id="age" name="age" placeholder="Umur">
           </div>
           <div class="form-group">
              <input type="text" class="form-control" id="nik" name="nik" placeholder="NIK">

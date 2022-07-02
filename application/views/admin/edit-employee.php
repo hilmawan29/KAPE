@@ -17,14 +17,14 @@
             } ?>
             </div>
                 <div class="form-group">
-                    <label for="title">Employee Name</label>
+                    <label for="title">Nama Karyawan</label>
                     <input type="text" class="form-control" id="name" name="name" value="<?= $employee['name']; ?>">
                     <?= form_error('name', '<small class="text-danger pl-3">', '</small>') ?>
                 </div>
                 <div class="form-group">
-                    <label for="department">Department</label>
+                    <label for="department">Departemen</label>
                     <select name="department" id="department" class="form-control">
-                        <option value="">Select Department</option>
+                        <option value="">Pilih Departemen</option>
                         <option <?php if($employee['department'] == 'Accounting'){ echo "selected='selected'";} ?> value="Accounting">Accounting</option>
                         <option <?php if($employee['department'] == 'Compliance'){ echo "selected='selected'";} ?> value="Compliance">Compliance</option>
                         <option <?php if($employee['department'] == 'Accounting'){ echo "selected='selected'";} ?> value="HRD">HRD</option>
@@ -76,7 +76,7 @@
                     <?= form_error('department', '<small class="text-danger pl-3">', '</small>') ?>
                 </div>
                 <div class="form-group">
-                    <label for="age">Age Employee</label>
+                    <label for="age">Umur</label>
                     <input type="text" class="form-control" id="age" name="age" value="<?= $employee['age']; ?>">
                     <?= form_error('age', '<small class="text-danger pl-3">', '</small>') ?>
                 </div>
@@ -86,7 +86,7 @@
                     <?= form_error('nik', '<small class="text-danger pl-3">', '</small>') ?>
                 </div>
             </div>
-            <button type="submit" class="btn btn-danger">Edit Employee Data</button>
+            <button type="submit" class="btn btn-danger">Upload Employee Data</button>
             </form>
 
         </div>
